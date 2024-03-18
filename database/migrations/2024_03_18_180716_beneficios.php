@@ -11,7 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('beneficios', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_empleado');
+            $table->string('tipo_beneficio');
+            $table->string('descripcion')->nullable();
+            $table->decimal('monto', 10, 2);
+            $table->timestamps();
+
+            $table->foreign('id_empleado')->references('id')->on('empleados')->onDelete('cascade');
+        });
     }
 
     /**
@@ -19,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('beneficios');
     }
 };

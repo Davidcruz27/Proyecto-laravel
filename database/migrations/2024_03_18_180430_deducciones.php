@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('deducciones', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre_deduccion');
+            $table->string('descripcion')->nullable();
+            $table->decimal('porcentaje_descuento', 5, 2);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('deducciones');
     }
 };

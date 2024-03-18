@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('horas_trabajadas', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('id_empleado');
+            $table->date('fecha');
+            $table->decimal('horas_trabajadas', 5, 2);
+            $table->timestamps();
+
+            $table->foreign('id_empleado')->references('id')->on('empleados')->onDelete('cascade');
+        });
     }
 
     /**
@@ -19,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('horas_trabajadas');
     }
 };
