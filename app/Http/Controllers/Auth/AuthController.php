@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -41,8 +42,25 @@ class AuthController extends Controller
         return redirect()->route('login')->with('sucesss', 'Usuario registrado correctamente');
     }
 
+        public function login(){
+            return view('auth.login');
+        }
 
+        public function loginVerify(Request $request){
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:4'
+            ], [
+                'email.required' => 'el email es requerido',
+                'email.unique' => 'el email ya ha sido usado',
+            ]);
 
+            if(Auth::attempt(['email'=>$request->email, 'password' => $request->password])){
+                return redirect()->route('dashboard');
+            }
+
+            return back()->withError(['invalid_credencials'=>'Usuario o contraseña no valida'])->withInput();
+        }
 
 }
 
