@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\returnValueMap;
+
 class AuthController extends Controller
 {
     /**
@@ -62,5 +64,9 @@ class AuthController extends Controller
             return back()->withError(['invalid_credencials'=>'Usuario o contraseña no valida'])->withInput();
         }
 
+        public function signOut(){
+            Auth::logout();
+            return redirect()-route('login')-with('success', 'sesion cerrada correctamente');
+        }
 }
 

@@ -11,17 +11,32 @@
 <body>
     
     <div class="container d-flex">
-        <form action="" method="POST" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
+        <form action="{{ route('login.verify')}}" method="POST" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
             @csrf
             <h2 class="text-center">
                 Login form
             </h2>
 
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <small>
+                    {{ session('success') }}
+                </small>
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+
             @error('invalid_credencials')
-            <div class="alert alert-danger alert-dimissible fade show" role="alert"></div>
-            <small>
-                {{ $message }}
-            </small>
+            <div class="alert alert-danger alert-dimissible fade show" role="alert">
+                <small>
+                    {{ $message }}
+                </small>
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @enderror
 
             <div class="form-group">
@@ -56,7 +71,7 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
